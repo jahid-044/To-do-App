@@ -1,0 +1,36 @@
+import React, { useState } from 'react';
+import '../App.css';
+import AddandEdit from './AddandEdit';
+
+export default function Todo() {
+  const [datas, setDatas] = useState([]);
+
+
+  const addTodo = (e, action, index) => {
+    if (action === 0) {
+      setDatas([...datas, {
+        name: e.target.name.value,
+        email: e.target.email.value,
+        todo: e.target.todo.value,
+      }]);
+    }
+    else {
+      datas[index].name = e.target.name.value;
+      datas[index].email = e.target.email.value;
+      datas[index].todo = e.target.todo.value;
+      setDatas(datas);
+    }
+  }
+
+  const deleteTodo = (i) => {
+    const filtered = datas.filter((_, idx) => idx !== i)
+    setDatas(filtered);
+  }
+
+  return (
+    <>
+      <AddandEdit addTodo={addTodo} deleteTodo={deleteTodo} datas={datas} />
+    </>
+  );
+
+}
