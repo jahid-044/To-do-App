@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../App.css';
-import AddandEdit from './AddandEdit';
+import Show from './Show';
 
 export default function Todo() {
   const [datas, setDatas] = useState([]);
@@ -29,7 +29,7 @@ export default function Todo() {
 
   return (
     <>
-      <AddandEdit addTodo={addTodo} deleteTodo={deleteTodo} datas={datas} />
+      <Show addTodo={addTodo} deleteTodo={deleteTodo} datas={datas} />
     </>
   );
 

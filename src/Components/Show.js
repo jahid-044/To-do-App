@@ -1,21 +1,27 @@
 import React, { useState } from 'react';
 import '../App.css';
 
-export default function AddandEdit({ addTodo, deleteTodo, datas }) {
+export default function Show({ addTodo, deleteTodo, datas }) {
     const [index, setIndex] = useState(0);
     const [info, setInfo] = useState({ name: '', email: '', todo: '' })
     const [action, setAction] = useState(0);
+    const [btnValue, setBtnValue] = useState('submit');
     const title = 'Add a to-do';
-    console.log(datas);
 
     const onChangeHandler = (event) => {
         setInfo({ ...info, [event.target.name]: event.target.value });
+    }
+
+    const refresh = () => {
+        setInfo({ name: '', email: '', todo: '' });
+        setBtnValue('submit');
     }
 
     const add = (event) => {
         addTodo(event, action, index);
         event.preventDefault();
         setInfo({ name: '', email: '', todo: '' });
+        setBtnValue('submit')
         setAction(0);
     }
 
@@ -23,6 +29,7 @@ export default function AddandEdit({ addTodo, deleteTodo, datas }) {
         event.preventDefault();
         const data = datas[index];
         setInfo({ name: data.name, email: data.email, todo: data.todo });
+        setBtnValue('Edit');
         setAction(1);
         setIndex(index);
     }
@@ -39,26 +46,32 @@ export default function AddandEdit({ addTodo, deleteTodo, datas }) {
                 <form className="myForm" onSubmit={add}>
                     <div className="align">
                         <label className="label" htmlFor="name">Name:</label>
-                        <input type="text" id="name" name="name" value={info.name} placeholder="Name" className="formField"
+                        <input required type="text" id="name" name="name" value={info.name} placeholder="Name" className="formField"
                             onChange={onChangeHandler}
                         />
                     </div>
 
                     <div className="align">
                         <label className="label" htmlFor="email">Email:</label>
-                        <input type="text" id="email" name="email" value={info.email} placeholder="Email" className="formField"
+                        <input required type="email" id="email" name="email" value={info.email} placeholder="Email" className="formField"
                             onChange={onChangeHandler}
                         />
                     </div>
 
                     <div className="align">
                         <label className="label" htmlFor="todo">Todo:</label>
-                        <input type="text" id="todo" name="todo" value={info.todo} placeholder="Todo description" className="formField"
+                        <textarea required type="text" id="todo" name="todo" value={info.todo} placeholder="Todo description" className="formField"
                             onChange={onChangeHandler}
                         />
                     </div>
-                    <div className="btn-submit">
-                        <input type="submit" className="myButton" value="submit" />
+                    <div className="btnHolder">
+                        <div className="btn-submit">
+                            <button onClick={refresh} className="myButton">cancel</button>
+                        </div>
+
+                        <div className="btn-submit">
+                            <input type="submit" className="myButton" value={btnValue} />
+                        </div>
                     </div>
                 </form>
                 <div className="list-div">
