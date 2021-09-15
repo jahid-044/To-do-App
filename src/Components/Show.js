@@ -66,12 +66,12 @@ export default function Show({ addTodo, deleteTodo, datas }) {
                     </div>
                     <div className="btnHolder">
                         <div className="btn-submit">
+                            <input type="submit" className="myButton" value={btnValue} />
+                        </div>
+                        <div className="btn-submit">
                             <button onClick={refresh} className="myButton">cancel</button>
                         </div>
 
-                        <div className="btn-submit">
-                            <input type="submit" className="myButton" value={btnValue} />
-                        </div>
                     </div>
                 </form>
                 <div className="list-div">
