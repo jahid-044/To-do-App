@@ -1,35 +1,28 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import '../App.css';
+import { TodoListContext } from '../Context/GlobalContext';
 import Show from './Show';
 
 export default function Todo() {
-  const [datas, setDatas] = useState([]);
+  const [state, dispatch] = useContext(TodoListContext);
 
 
-  const addTodo = (e, action, index) => {
+  const addTodo = (info, action, index) => {
     if (action === 0) {
-      setDatas([...datas, {
-        name: e.target.name.value,
-        email: e.target.email.value,
-        todo: e.target.todo.value,
-      }]);
+      dispatch({ type: 'add', payload: info });
     }
     else {
-      datas[index].name = e.target.name.value;
-      datas[index].email = e.target.email.value;
-      datas[index].todo = e.target.todo.value;
-      setDatas(datas);
+      dispatch({ type: 'edit', index: index, payload: info });
     }
   }
 
-  const deleteTodo = (i) => {
-    const filtered = datas.filter((_, idx) => idx !== i)
-    setDatas(filtered);
+  const deleteTodo = (index) => {
+    dispatch({ type: 'delete', payload: index })
   }
 
   return (
     <>
-      <Show addTodo={addTodo} deleteTodo={deleteTodo} datas={datas} />
+      <Show addTodo={addTodo} deleteTodo={deleteTodo} />
     </>
   );
 

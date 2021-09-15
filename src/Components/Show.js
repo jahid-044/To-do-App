@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { TodoListContext } from '../Context/GlobalContext';
 import '../App.css';
 
-export default function Show({ addTodo, deleteTodo, datas }) {
+export default function Show({ addTodo, deleteTodo }) {
+    const [state, dispatch] = useContext(TodoListContext);
+
     const [index, setIndex] = useState(0);
     const [info, setInfo] = useState({ name: '', email: '', todo: '' })
     const [action, setAction] = useState(0);
@@ -18,7 +21,7 @@ export default function Show({ addTodo, deleteTodo, datas }) {
     }
 
     const add = (event) => {
-        addTodo(event, action, index);
+        addTodo(info, action, index);
         event.preventDefault();
         setInfo({ name: '', email: '', todo: '' });
         setBtnValue('submit')
@@ -27,7 +30,7 @@ export default function Show({ addTodo, deleteTodo, datas }) {
 
     const edit = (event, index) => {
         event.preventDefault();
-        const data = datas[index];
+        const data = state.datas[index];
         setInfo({ name: data.name, email: data.email, todo: data.todo });
         setBtnValue('Edit');
         setAction(1);
@@ -76,7 +79,7 @@ export default function Show({ addTodo, deleteTodo, datas }) {
                 </form>
                 <div className="list-div">
                     {
-                        datas.map((data, i) =>
+                        state.datas.map((data, i) =>
                             <li key={i} className="myList">
                                 Name: {data.name}<br />Email: {data.email}<br />To-do: {data.todo}<br />
                                 <button onClick={() => remove(i)} className="myListButton">remove </button>

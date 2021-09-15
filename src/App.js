@@ -1,8 +1,11 @@
 import Todo from "./Components/Todo";
+import GlobalContext from "./Context/GlobalContext";
 
 function App() {
   return (
-    <Todo />
+    <GlobalContext>
+      <Todo />
+    </GlobalContext>
   );
 }
 
