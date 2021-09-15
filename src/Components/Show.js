@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { TodoListContext } from '../Context/GlobalContext';
 import '../App.css';
 
-export default function Show({ addTodo, deleteTodo, datas }) {
+export default function Show({ addTodo, deleteTodo }) {
+    const [datas, setDatas] = useContext(TodoListContext);
+
     const [index, setIndex] = useState(0);
     const [info, setInfo] = useState({ name: '', email: '', todo: '' })
     const [action, setAction] = useState(0);
@@ -37,6 +40,7 @@ export default function Show({ addTodo, deleteTodo, datas }) {
     const remove = (index) => {
         deleteTodo(index);
         setInfo({ name: '', email: '', todo: '' });
+        setBtnValue('submit')
     }
 
     return (

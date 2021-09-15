@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import '../App.css';
+import { TodoListContext } from '../Context/GlobalContext';
 import Show from './Show';
 
 export default function Todo() {
-  const [datas, setDatas] = useState([]);
+  const [datas, setDatas] = useContext(TodoListContext);
 
 
   const addTodo = (e, action, index) => {
@@ -29,7 +30,7 @@ export default function Todo() {
 
   return (
     <>
-      <Show addTodo={addTodo} deleteTodo={deleteTodo} datas={datas} />
+      <Show addTodo={addTodo} deleteTodo={deleteTodo} />
     </>
   );
 
