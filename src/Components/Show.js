@@ -3,13 +3,12 @@ import { TodoListContext } from '../Context/GlobalContext';
 import '../App.css';
 
 export default function Show({ addTodo, deleteTodo }) {
-    const [state, dispatch] = useContext(TodoListContext);
+    const { state } = useContext(TodoListContext);
 
     const [index, setIndex] = useState(0);
     const [info, setInfo] = useState({ name: '', email: '', todo: '' })
     const [action, setAction] = useState(0);
-    const [btnValue, setBtnValue] = useState('submit');
-    const title = 'Add a to-do';
+    const [btnValue, setBtnValue] = useState(0);
 
     const onChangeHandler = (event) => {
         setInfo({ ...info, [event.target.name]: event.target.value });
@@ -17,14 +16,14 @@ export default function Show({ addTodo, deleteTodo }) {
 
     const refresh = () => {
         setInfo({ name: '', email: '', todo: '' });
-        setBtnValue('submit');
+        setBtnValue(0);
     }
 
     const add = (event) => {
         addTodo(info, action, index);
         event.preventDefault();
         setInfo({ name: '', email: '', todo: '' });
-        setBtnValue('submit')
+        setBtnValue(0)
         setAction(0);
     }
 
@@ -32,7 +31,7 @@ export default function Show({ addTodo, deleteTodo }) {
         event.preventDefault();
         const data = state.datas[index];
         setInfo({ name: data.name, email: data.email, todo: data.todo });
-        setBtnValue('Edit');
+        setBtnValue(1);
         setAction(1);
         setIndex(index);
     }
@@ -45,7 +44,7 @@ export default function Show({ addTodo, deleteTodo }) {
     return (
         <>
             <div className="App">
-                <h2>{title}</h2>
+                <h2>Add a to-do</h2>
                 <form className="myForm" onSubmit={add}>
                     <div className="align">
                         <label className="label" htmlFor="name">Name:</label>
@@ -69,7 +68,7 @@ export default function Show({ addTodo, deleteTodo }) {
                     </div>
                     <div className="btnHolder">
                         <div className="btn-submit">
-                            <input type="submit" className="myButton" value={btnValue} />
+                            <input type="submit" className="myButton" value={btnValue === 0 ? 'submit' : 'edit'} />
                         </div>
                         <div className="btn-submit">
                             <button onClick={refresh} className="myButton">cancel</button>

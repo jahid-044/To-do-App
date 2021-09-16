@@ -10,7 +10,7 @@ export const TodoListContext = createContext(initialState);
 function GlobalContext(props) {
     const [state, dispatch] = useReducer(todoReducer, initialState);
     return (
-        <TodoListContext.Provider value={[state, dispatch]}>
+        <TodoListContext.Provider value={{ state, dispatch }}>
             {props.children}
         </TodoListContext.Provider>
     )

@@ -4,7 +4,7 @@ import { TodoListContext } from '../Context/GlobalContext';
 import Show from './Show';
 
 export default function Todo() {
-  const [state, dispatch] = useContext(TodoListContext);
+  const { dispatch } = useContext(TodoListContext);
 
 
   const addTodo = (info, action, index) => {
