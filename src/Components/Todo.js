@@ -4,7 +4,7 @@ import { TodoListContext } from '../Context/GlobalContext';
 import Show from './Show';
 
 export default function Todo() {
-  const [datas, setDatas] = useContext(TodoListContext);
+  const { datas, setDatas } = useContext(TodoListContext);
 
 
   const addTodo = (e, action, index) => {
